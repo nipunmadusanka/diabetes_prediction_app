@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Diabetes Prediction</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='fonts/material-design-iconic-font/css/material-design-iconic-font.min.css')}}">
+		
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css')}}">
+	</head>
+
+	<body>
+
+		<div class="wrapper">
+			<div class="inner">
+				<form action="{{ url_for('predict')}}"method="post">
+					<p class="err">{{ message }} {{ title }}</p>
+					<h3 style="margin-bottom: 30px;">Type 2 Diabetes Prediction</h3>
+					
+					<!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p> -->
+					<label class="form-group">
+						<input style="color: aliceblue;" type="text" name="a" class="form-control" value="1" required>
+						<span>Gender (male = 0, female = 1)</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input style="color: aliceblue;" type="text" name="b" class="form-control"  required>
+						<span for="">Oral glucose tolerance test - OGTT</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input style="color: aliceblue;" type="text" name="c" class="form-control"  required>
+						<span for="">Blood Pressure</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input style="color: aliceblue;" type="text" name="d" class="form-control"  required>
+						<span for="">Skin Thickness (Triceps skin fold thickness in mm),</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input style="color: aliceblue;" type="text" name="e" class="form-control"  required>
+						<span for="">Insulin (2 h serum insulin in mu U/ml)</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input style="color: aliceblue;" type="text" name="f" class="form-control"  required>
+						<span for="">BMI</span>
+						<span class="border"></span>
+					</label>
+					
+					<label class="form-group">
+						<input style="color: aliceblue;" type="text" name="h" class="form-control"  required>
+						<span for="">Pedigree Diabetes Function</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input style="color: aliceblue;" type="text" name="g" class="form-control"  required>
+						<span for="">Age</span>
+						<span class="border"></span>
+					</label>
+					<h5>{{ prediction_text }}</h5>
+       				<h5>{{ text }}</h5>
+					<button>Predict 
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+		
+	</body>
+</html>
