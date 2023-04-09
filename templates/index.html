@@ -36,11 +36,11 @@
 						<span for="">Blood Pressure</span>
 						<span class="border"></span>
 					</label>
-					<label class="form-group">
+					<!-- <label class="form-group">
 						<input style="color: aliceblue;" type="text" name="d" class="form-control"  required>
 						<span for="">Skin Thickness (Triceps skin fold thickness in mm),</span>
 						<span class="border"></span>
-					</label>
+					</label> -->
 					<label class="form-group">
 						<input style="color: aliceblue;" type="text" name="e" class="form-control"  required>
 						<span for="">Insulin (2 h serum insulin in mu U/ml)</span>
@@ -62,8 +62,10 @@
 						<span for="">Age</span>
 						<span class="border"></span>
 					</label>
-					<h5>{{ prediction_text }}</h5>
+					<h4><p class="p1_color">Result:</p> {{ prediction_text }}</h4>
+					<br/>
        				<h5>{{ text }}</h5>
+					<p>{{ value }}</p>
 					<button>Predict 
 						<i class="zmdi zmdi-arrow-right"></i>
 					</button>

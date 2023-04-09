@@ -6,7 +6,7 @@ from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
 
-model = pk.load(open('diabetes_predict.pkl','rb'))
+model = pk.load(open('best_model.pkl','rb'))
 
 @app.route("/")
 def home():
@@ -29,12 +29,13 @@ def predict():
     rslt = model.predict(re_shape)
 
     if rslt[0] == 1:
-        text = "I think you have Diabets, Please meet you Doctor soon as posible"
+        text = "Diabetic (Positive), It is highly recommended to seek medical treatment as soon as possible."
     else:
-        text = "Great, You haven't diabetes"
+        text = "Good news! You do not have diabetes. Maintaining a healthy lifestyle is crucial for ensuring optimal health."
     
-    return render_template('index.html', prediction_text='Result: {}'.format(text),
-                           text=': {}'.format(rslt) )
+    return render_template('index.html', prediction_text='{}'.format(text),
+                           text=': {}'.format(rslt),
+                            value=': {}'.format(np_array) )
 
 @app.route('/simulate500')
 def simulate500():
