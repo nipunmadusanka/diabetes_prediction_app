@@ -1,0 +1,5 @@
+gunicorn
+flask
+numpy
+sklearn.preprocessing
+werkzeug.exceptions
