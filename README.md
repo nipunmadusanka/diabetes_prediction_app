@@ -68,5 +68,8 @@ the message "Good news! You do not have diabetes." Furthermore, maintaining a he
 is highlighted as crucial for optimizing overall health
 
 
-![Screenshot 2023-03-12 004616](https://user-images.githubusercontent.com/70307019/224507531-dbf6d2ad-ba1b-4dd0-bef0-7d46452913d4.png)
-![Screenshot 2023-03-12 004738](https://user-images.githubusercontent.com/70307019/224507552-87094b02-0759-44d8-9472-702b971d44f8.png)
+![image](https://github.com/nipunmadusanka/diabetes_prediction_app/assets/70307019/5ebfd90e-1e77-44f7-a028-03a035e37f9d)
+
+Result:-
+![image](https://github.com/nipunmadusanka/diabetes_prediction_app/assets/70307019/711a3a14-45ea-4aab-a89c-d7acbf081a1b)
+
