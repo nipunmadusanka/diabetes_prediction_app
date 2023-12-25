@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Diabetes Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/material-design-iconic-font/css/material-design-iconic-font.min.css')}}">
+    
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css')}}">
+
+    <style>
+        /* Popup styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .popup-description {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .popup-description-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 600px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Popup Window -->
+    <div id="popup" class="popup-overlay">
+        <div class="popup-content">
+            <h3>Welcome to Diabetes Prediction</h3>
+            <p>Please select an option:</p>
+            <button id="predictButton">Predict Diabetes</button>
+            <button id="aboutButton">About</button>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div class="inner">
+            <form action="{{ url_for('predict')}}" method="post">
+                <p class="err">{{ message }} {{ title }}</p>
+                <h3 style="margin-bottom: 30px;">Type 2 Diabetes Prediction</h3>
+                
+                <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="a" class="form-control" value="1" required>
+                    <span>Gender (male = 0, female = 1)</span>
+                    <span class="border"></span>
+                </label>
+                <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="b" class="form-control"  required>
+                    <span for="">Oral glucose tolerance test - OGTT</span>
+                    <span class="border"></span>
+                </label>
+                <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="c" class="form-control"  required>
+                    <span for="">Blood Pressure</span>
+                    <span class="border"></span>
+                </label>
+                <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="e" class="form-control"  required>
+                    <span for="">Insulin (2 h serum insulin in mu U/ml)</span>
+                    <span class="border"></span>
+                </label>
+                <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="f" class="form-control"  required>
+                    <span for="">BMI</span>
+                    <span class="border"></span>
+                </label>
+                
+                <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="h" class="form-control"  required>
+                    <span for="">Pedigree Diabetes Function</span>
+                    <span class="border"></span>
+                </label>
+                <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="g" class="form-control"  required>
+                    <span for="">Age</span>
+                    <span class="border"></span>
+                </label>
+                <h4><p class="p1_color">Result:</p> {{ prediction_text }}</h4>
+                <br/>
+                <h5>{{ text }}</h5>
+                <p>{{ value }}</p>
+                <button>Predict 
+                    <i class="zmdi zmdi-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- About Popup Window -->
+    <div id="aboutPopup" class="popup-description">
+        <div class="popup-description-content">
+            <h3>About Diabetes Prediction</h3>
+            <p>This web application predicts the likelihood of having Type 2 Diabetes based on various factors. By inputting relevant information, the algorithm generates a prediction. Please note that this prediction should not be considered as a substitute for professional medical advice. Always consult a healthcare professional for accurate diagnosis and treatment.</p>
+            <button id="closeAboutButton">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Open popup window when the page loads
+        window.addEventListener("load", function () {
+            document.getElementById("popup").style.display = "flex";
+        });
+
+        // Close popup window
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        // Event listener for the Predict Diabetes button
+        document.getElementById("predictButton").addEventListener("click", function () {
+            closePopup();
+        });
+
+        // Event listener for the About button
+        document.getElementById("aboutButton").addEventListener("click", function () {
+            document.getElementById("aboutPopup").style.display = "flex";
+        });
+
+        // Event listener for the Close About button
+        document.getElementById("closeAboutButton").addEventListener("click", function () {
+            document.getElementById("aboutPopup").style.display = "none";
+        });
+    </script>
+</body>
+</html>

@@ -1,77 +1,155 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Diabetes Prediction</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="utf-8">
+    <title>Diabetes Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<!-- MATERIAL DESIGN ICONIC FONT -->
-		<link rel="stylesheet" href="{{ url_for('static', filename='fonts/material-design-iconic-font/css/material-design-iconic-font.min.css')}}">
-		
-		<!-- STYLE CSS -->
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css')}}">
-	</head>
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/material-design-iconic-font/css/material-design-iconic-font.min.css')}}">
+    
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css')}}">
+</head>
 
-	<body>
+<body>
+    <!-- Popup Window -->
+    <div id="popup" class="popup-overlay">
+        <div class="popup-content">
+            <h3>Welcome to Diabetes Prediction</h3>
+            <p>Please select an option:</p>
+            <button id="predictButton">Predict Diabetes</button>
+            <button id="aboutButton">About</button>
+            <div class="developer-info">
+                <p>Developed by:</p>
+                <p>J.M.N.M GUNASEKARA</p>
+                <p>Department of Information and Communication Technology</p>
+                <p>Faculty of Technology</p>
+                <p>South Eastern University of Sri Lanka</p>
+            </div>
+        </div>
+    </div>
 
-		<div class="wrapper">
-			<div class="inner">
-				<form action="{{ url_for('predict')}}"method="post">
-					<p class="err">{{ message }} {{ title }}</p>
-					<h3 style="margin-bottom: 30px;">Type 2 Diabetes Prediction</h3>
+    <div class="wrapper">
+        <div class="inner">
+            <form action="{{ url_for('predict')}}" method="post">
+                <p class="err">{{ message }} {{ title }}</p>
+                <h3 style="margin-bottom: 20px;">Type 2 Diabetes Prediction</h3>
+                <p style="margin-bottom: 10px;">Please fill in the required information and click the "Predict" button to get the result.</p>
+				<br />
+                <!-- <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="a" class="form-control" value="1" required>
+                    <span>Gender (male = 0, female = 1)</span>
+                    <span class="border"></span>
+                </label> -->
+				<label class="form-group">
+					<select style="color: rgb(0, 0, 0);" name="a" class="form-control" required>
+						<option value="1">Male</option>
+						<option value="0">Female</option>
+					</select>
+					<span>Gender</span>
+					<span class="border"></span>
+				</label>
+                <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="b" class="form-control"  required>
+                    <span for="">Oral glucose tolerance test - OGTT</span>
+                    <span class="border"></span>
+                </label>
+                <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="c" class="form-control"  required>
+                    <span for="">Blood Pressure</span>
+                    <span class="border"></span>
+                </label>
+                <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="e" class="form-control"  required>
+                    <span for="">Insulin (2 h serum insulin in mu U/ml)</span>
+                    <span class="border"></span>
+                </label>
+                <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="f" class="form-control"  required>
+                    <span for="">BMI</span>
+                    <span class="border"></span>
+                </label>
+                <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="h" class="form-control"  required>
+                    <span for="">Pedigree Diabetes Function</span>
+                    <span class="border"></span>
+                </label>
+                <label class="form-group">
+                    <input style="color: aliceblue;" type="text" name="g" class="form-control"  required>
+                    <span for="">Age</span>
+                    <span class="border"></span>
+                </label>
+                <h4><p class="p1_color">Result:</p></h4>
+				<div class="result-tag" id="result">
+					<p class="result-value">{{ prediction_text }}</p>
+					<h5>{{ text }}</h5>
+                	<p>{{ value }}</p>
+				</div>				
+                <button id="prediction">Predict 
+                    <i class="zmdi zmdi-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+		 // Check if the current URL matches the predict endpoint
+		 var currentURL = window.location.href;
+        if (currentURL.indexOf("http://127.0.0.1:5000/predict") !== -1) {
+            var popup = document.getElementById('popup');
+            popup.style.display = 'none';
+        }
+		// Form submit handler to prevent popup when form is submitted
+        function handleFormSubmit() {
+            var popup = document.getElementById('popup');
+            popup.style.display = 'none';
+            return true;
+        }
+		// Open the result
+		// var prediction = document.getElementById('prediction');
+		// prediction.addEventListener('click', function(){
+		// 	var result = document.getElementById('result');
+		// 	result.style.display = 'flex';
+		// });
+        // Open the main popup
+		if (currentURL.indexOf("http://127.0.0.1:5000") == true) {
+        document.addEventListener('DOMContentLoaded', function() {
+            var popup = document.getElementById('popup');
+            popup.style.display = 'flex';
+        });
+		}
+        // Predict button click handler
+        var predictButton = document.getElementById('predictButton');
+        predictButton.addEventListener('click', function() {
+            var popup = document.getElementById('popup');
+            popup.style.display = 'none';
+        });
+
+        // About button click handler
+        var aboutButton = document.getElementById('aboutButton');
+        aboutButton.addEventListener('click', function() {
+            var descriptionPopup = document.createElement('div');
+            descriptionPopup.className = 'popup-description';
+            descriptionPopup.innerHTML = `
+                <div class="popup-description-content">
+                    <h3>About Diabetes Prediction</h3>
+					<br />
+                    <br />
+					<p>This web application predicts the likelihood of having Type 2 Diabetes based on various factors. By inputting relevant information, the algorithm generates a prediction. Please note that this prediction should not be considered as a substitute for professional medical advice. Always consult a healthcare professional for accurate diagnosis and treatment.</p>
+            		<br />
 					
-					<!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p> -->
-					<label class="form-group">
-						<input style="color: aliceblue;" type="text" name="a" class="form-control" value="1" required>
-						<span>Gender (male = 0, female = 1)</span>
-						<span class="border"></span>
-					</label>
-					<label class="form-group">
-						<input style="color: aliceblue;" type="text" name="b" class="form-control"  required>
-						<span for="">Oral glucose tolerance test - OGTT</span>
-						<span class="border"></span>
-					</label>
-					<label class="form-group">
-						<input style="color: aliceblue;" type="text" name="c" class="form-control"  required>
-						<span for="">Blood Pressure</span>
-						<span class="border"></span>
-					</label>
-					<!-- <label class="form-group">
-						<input style="color: aliceblue;" type="text" name="d" class="form-control"  required>
-						<span for="">Skin Thickness (Triceps skin fold thickness in mm),</span>
-						<span class="border"></span>
-					</label> -->
-					<label class="form-group">
-						<input style="color: aliceblue;" type="text" name="e" class="form-control"  required>
-						<span for="">Insulin (2 h serum insulin in mu U/ml)</span>
-						<span class="border"></span>
-					</label>
-					<label class="form-group">
-						<input style="color: aliceblue;" type="text" name="f" class="form-control"  required>
-						<span for="">BMI</span>
-						<span class="border"></span>
-					</label>
-					
-					<label class="form-group">
-						<input style="color: aliceblue;" type="text" name="h" class="form-control"  required>
-						<span for="">Pedigree Diabetes Function</span>
-						<span class="border"></span>
-					</label>
-					<label class="form-group">
-						<input style="color: aliceblue;" type="text" name="g" class="form-control"  required>
-						<span for="">Age</span>
-						<span class="border"></span>
-					</label>
-					<h4><p class="p1_color">Result:</p> {{ prediction_text }}</h4>
-					<br/>
-       				<h5>{{ text }}</h5>
-					<p>{{ value }}</p>
-					<button>Predict 
-						<i class="zmdi zmdi-arrow-right"></i>
-					</button>
-				</form>
-			</div>
-		</div>
-		
-	</body>
+					<button id="closeButton">Close</button>
+                </div>
+            `;
+            document.body.appendChild(descriptionPopup);
+
+            // Close button click handler for the description popup
+            var closeButton = document.getElementById('closeButton');
+            closeButton.addEventListener('click', function() {
+                descriptionPopup.remove();
+            });
+        });
+    </script>
+</body>
 </html>

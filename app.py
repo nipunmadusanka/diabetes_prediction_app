@@ -29,9 +29,9 @@ def predict():
     rslt = model.predict(re_shape)
 
     if rslt[0] == 1:
-        text = "Diabetic (Positive), It is highly recommended to seek medical treatment as soon as possible."
+        text = "Diabetic (Positive), This person is diabetes positive."
     else:
-        text = "Good news! You do not have diabetes. Maintaining a healthy lifestyle is crucial for ensuring optimal health."
+        text = "Good news! This person does not have diabetes."
     
     return render_template('index.html', prediction_text='{}'.format(text),
                            text=': {}'.format(rslt),
